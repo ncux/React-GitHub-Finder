@@ -7,25 +7,35 @@ import Users from "./components/users/users/users";
 import Search from "./components/users/search/search";
 import Alert from "./components/layout/alert/alert";
 import About from "./components/pages/about/about";
+import UserProfile from "./components/users/userProfile/userProfile";
 
 const API_ID = process.env.REACT_APP_CLIENT_ID;
 const API_SECRET = process.env.REACT_APP_CLIENT_SECRET;
+const API_URL = `https://api.github.com/users`;
 
 class App extends Component {
 
   state = {
     title: "GitHub Finder",
     icon: "fab fa-github",
-    usersAPI: `https://api.github.com/users?client_id=${API_ID}&client_secret=${API_SECRET}`,
+    usersAPI: `${API_URL}?client_id=${API_ID}&client_secret=${API_SECRET}`,
     alert: null,
     loading: false,
-    users: []
+    users: [],
+    user: {}
   };
 
     searchUsers = async searchTerm => {
       this.setState({ loading: true });
       const res = await axios.get(`https://api.github.com/search/users?q=${searchTerm}&client_id=${API_ID}&client_secret=${API_SECRET}`);
       this.setState({ users: res.data.items, loading: false });
+    };
+
+    getSingleUser = async userLogin => {
+        this.setState({ loading: true });
+        const res = await axios.get(`${API_URL}/${userLogin}?client_id=${API_ID}&client_secret=${API_SECRET}`);
+        console.log(res.data);
+        this.setState({ user: res.data, loading: false });
     };
 
     clearUsers = () => this.setState({ users: [], loading: false });
@@ -37,7 +47,7 @@ class App extends Component {
 
     render() {
 
-    const { title, icon, alert, loading, users } = this.state;
+    const { title, icon, alert, loading, users, user } = this.state;
 
     return (
        <BrowserRouter>
@@ -51,6 +61,9 @@ class App extends Component {
                                <Search searchUsers={ this.searchUsers } users={ users } clearUsers={ this.clearUsers } setAlert={ this.setAlert } />
                                <Users loading={ loading } users={ users } />
                            </Fragment>
+                       ) } />
+                       <Route exact path="/user/:userLogin" render={ props => (
+                          <UserProfile { ...props } getUser={ this.getSingleUser } user={ user } loading={ loading } />
                        ) } />
                        <Route exact path="/about" component={ About } />
                    </Switch>

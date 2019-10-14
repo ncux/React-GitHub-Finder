@@ -1,5 +1,5 @@
 import React from 'react';
-import User from "../user/user";
+import UserItem from "../userItem/userItem";
 import Loading from "../../layout/loading/loading";
 
 const Users = props => {
@@ -15,7 +15,7 @@ const Users = props => {
     return (
         <div style={ usersStyle }>
             { users.map(user => (
-                <User key={ user.id } user={ user } />
+                <UserItem key={ user.id } user={ user } />
             )) }
         </div>
     );
