@@ -22,7 +22,8 @@ class App extends Component {
     alert: null,
     loading: false,
     users: [],
-    user: {}
+    user: {},
+    repositories: []
   };
 
     searchUsers = async searchTerm => {
@@ -34,8 +35,13 @@ class App extends Component {
     getSingleUser = async userLogin => {
         this.setState({ loading: true });
         const res = await axios.get(`${API_URL}/${userLogin}?client_id=${API_ID}&client_secret=${API_SECRET}`);
-        console.log(res.data);
         this.setState({ user: res.data, loading: false });
+    };
+
+    getUserRepositories = async userLogin => {
+        this.setState({ loading: true });
+        const res = await axios.get(`https://api.github.com/users/${userLogin}/repos?per_page=5&sort=created:asc&client_id=${API_ID}&client_secret=${API_SECRET}`);
+        this.setState({ repositories: res.data, loading: false });
     };
 
     clearUsers = () => this.setState({ users: [], loading: false });
@@ -47,7 +53,7 @@ class App extends Component {
 
     render() {
 
-    const { title, icon, alert, loading, users, user } = this.state;
+    const { title, icon, alert, loading, users, user, repositories } = this.state;
 
     return (
        <BrowserRouter>
@@ -63,7 +69,7 @@ class App extends Component {
                            </Fragment>
                        ) } />
                        <Route exact path="/user/:userLogin" render={ props => (
-                          <UserProfile { ...props } getUser={ this.getSingleUser } user={ user } loading={ loading } />
+                          <UserProfile { ...props } getUser={ this.getSingleUser } getRepos={ this.getUserRepositories } user={ user } repos={ repositories } loading={ loading } />
                        ) } />
                        <Route exact path="/about" component={ About } />
                    </Switch>

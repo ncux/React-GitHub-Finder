@@ -1,20 +1,19 @@
 import React, {Component, Fragment} from 'react';
 import { Link } from 'react-router-dom';
 import Loading from "../../layout/loading/loading";
+import Repositories from "../../repositories/repositories/repositories";
 
 class UserProfile extends Component {
 
-    state = {
-    };
-
     componentDidMount() {
         this.props.getUser(this.props.match.params['userLogin']);
+        this.props.getRepos(this.props.match.params['userLogin']);
     }
 
     render() {
 
         const { login, name, avatar_url, html_url, location, bio, repos_url, followers, following  } = this.props.user;
-        const { loading } = this.props;
+        const { repos, loading } = this.props;
 
         if(loading) {
             return <Loading />
@@ -54,6 +53,7 @@ class UserProfile extends Component {
                         { following && ( <p><strong>Following</strong>: { following }</p> ) }
                     </div>
                 </div>
+                <Repositories repos={ repos } />
             </Fragment>
         );
     }
