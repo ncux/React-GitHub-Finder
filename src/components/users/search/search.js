@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { GitHubContext } from "../../../contexts/GitHub/GitHub";
 
-const Search = ({ users, clearUsers, setAlert, searchUsers }) => {
+const Search = () => {
 
+    const { users, searchUsers, clearUsers, setAlert } = useContext(GitHubContext);
     const [searchTerm, setSearchTerm] = useState('');
 
     const onFormSubmit = e => {
