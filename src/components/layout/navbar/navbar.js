@@ -22,14 +22,14 @@ const Navbar = props => {
     );
 };
 
-Navbar.defaultProps = {
-    title: "GitHub Finder",
-    icon: "fab fa-github"
-};
-
-Navbar.propTypes = {
-    title: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired,
-};
+// Navbar.defaultProps = {
+//     title: "GitHub Finder",
+//     icon: "fab fa-github"
+// };
+//
+// Navbar.propTypes = {
+//     title: PropTypes.string.isRequired,
+//     icon: PropTypes.string.isRequired,
+// };
 
 export default Navbar;

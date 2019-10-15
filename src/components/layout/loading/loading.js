@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import loading from '../../../styles/loading.gif';
 
-
 const Loading = props => {
 
     return (
