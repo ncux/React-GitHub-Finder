@@ -39,7 +39,8 @@ const UserProfile = props => {
                             <strong>Profile</strong>: <a href={ html_url } target="_blank" rel="noopener noreferrer" className="">View profile</a>
                         </li>
                         <li>
-                            <strong>Public repositories</strong>: { repos_url && ( <a href={ `https://github.com/${login}?tab=repositories` } target="_blank" rel="noopener noreferrer" className="">View repositories</a> ) }
+                            <strong>Public repositories</strong>:
+                            { repos_url && ( <a href={ `https://github.com/${login}?tab=repositories` } target="_blank" rel="noopener noreferrer" className="">View repositories</a> ) }
                         </li>
 
                     </ul>

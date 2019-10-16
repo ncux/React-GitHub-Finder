@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import axios from "axios";
 import { Reducer } from "./reducer";
-import { SEARCH_USERS, GET_USER, CLEAR_USERS, GET_REPOS, REMOVE_ALERT, SET_ALERT, SET_LOADING } from "../types";
+import { SEARCH_USERS, GET_USER, CLEAR_USERS, GET_REPOS, SET_LOADING } from "../types";
 
 const API_ID = process.env.REACT_APP_CLIENT_ID;
 const API_SECRET = process.env.REACT_APP_CLIENT_SECRET;
@@ -47,12 +47,6 @@ export const GitHubState = props => {
         dispatch({ type: GET_REPOS, payload: res.data });
     };
 
-    // set alert
-    const setAlert = (message, type) => {
-        dispatch({ type: SET_ALERT, payload: { message, type } });
-        setTimeout(() => dispatch({ type: REMOVE_ALERT }), 3000);
-    };
-
     // set loading
     const setLoading = () => dispatch({ type: SET_LOADING });
 
@@ -69,7 +63,6 @@ export const GitHubState = props => {
             clearUsers,
             getSingleUser,
             getUserRepositories,
-            setAlert
         }}>
             { props.children }
         </GitHubContext.Provider>

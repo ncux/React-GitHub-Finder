@@ -7,9 +7,7 @@ const Repositories = () => {
     const { repos } = useContext(GitHubContext);
 
     return (
-        repos.map(repo => (
-            <Repo key={ repo.id } repo={ repo } />
-        ))
+        repos.map(repo => (<Repo key={ repo.id } repo={ repo } />))
     );
 
 };

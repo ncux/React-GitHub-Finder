@@ -10,7 +10,6 @@ export const AlertState = props => {
 
     const [state, dispatch] = useReducer(Reducer, alertState);
 
-    // set alert
     const setAlert = (message, type) => {
         dispatch({ type: SET_ALERT, payload: { message, type } });
         setTimeout(() => dispatch({ type: REMOVE_ALERT }), 3000);

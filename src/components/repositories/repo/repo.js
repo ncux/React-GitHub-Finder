@@ -9,7 +9,6 @@ const Repo = ({ repo }) => {
             </h3>
             <small>Created on { repo.created_at.slice(0, 10) }</small>
             <p>{ repo.description }</p>
-
         </div>
     );
 

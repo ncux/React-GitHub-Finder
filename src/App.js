@@ -7,13 +7,15 @@ import Search from "./components/users/search/search";
 import Alert from "./components/layout/alert/alert";
 import About from "./components/pages/about/about";
 import UserProfile from "./components/users/userProfile/userProfile";
+import NotFound from "./components/pages/NotFound/NotFound";
+
 import { GitHubState } from "./contexts/GitHub/GitHub";
 import { AlertState } from "./contexts/Alert/Alert";
 
 const App = () => {
 
-    const [title, setTitle] = useState('');
-    const [icon, setIcon] = useState('');
+    const [title, setTitle] = useState('GitHub Finder');
+    const [icon, setIcon] = useState('fab fa-github');
 
     return (
         <AlertState>
@@ -31,8 +33,8 @@ const App = () => {
                                     </Fragment>
                                 ) } />
                                 <Route exact path="/user/:userLogin" component={ UserProfile } />
-                                ) } />
                                 <Route exact path="/about" component={ About } />
+                                <Route component={ NotFound } />
                             </Switch>
                         </div>
                     </div>
