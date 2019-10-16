@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { GitHubContext } from "../../../contexts/GitHub/GitHub";
+import { AlertContext } from "../../../contexts/Alert/Alert";
 
 const Search = () => {
 
-    const { users, searchUsers, clearUsers, setAlert } = useContext(GitHubContext);
+    const { setAlert } = useContext(AlertContext);
+    const { users, searchUsers, clearUsers } = useContext(GitHubContext);
     const [searchTerm, setSearchTerm] = useState('');
 
     const onFormSubmit = e => {

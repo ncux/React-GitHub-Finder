@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import UserItem from "../userItem/userItem";
 import Loading from "../../layout/loading/loading";
+import { GitHubContext } from "../../../contexts/GitHub/GitHub";
 
 const Users = props => {
 
-    const { loading, users } = props;
+    const { users, loading } = useContext(GitHubContext);
 
     if(loading) {
         return (

@@ -1,6 +1,4 @@
-import React from "react";
 import { SEARCH_USERS, GET_USER, CLEAR_USERS, GET_REPOS, REMOVE_ALERT, SET_ALERT, SET_LOADING } from "../types";
-
 
 export const Reducer = (state, action) => {
 
@@ -11,13 +9,16 @@ export const Reducer = (state, action) => {
             return { ...state, users: action.payload, loading: false };
         case CLEAR_USERS:
             return { ...state, users: [], loading: false };
+        case GET_USER:
+            return { ...state, user: action.payload, loading: false };
+        case GET_REPOS:
+            return { ...state, repos: action.payload, loading: false };
         case SET_ALERT:
             return {  ...state, alert: { message: action.payload.message, type: action.payload.type } };
         case REMOVE_ALERT:
             return { ...state, alert: null };
         default:
             return state;
-
     }
 };
 

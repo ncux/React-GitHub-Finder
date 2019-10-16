@@ -1,19 +1,20 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, useContext, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Loading from "../../layout/loading/loading";
 import Repositories from "../../repositories/repositories/repositories";
+import { GitHubContext } from "../../../contexts/GitHub/GitHub";
 
 const UserProfile = props => {
 
-    const { getUser, getRepos, repos, loading } = props;
+    const { user, loading, getSingleUser, getUserRepositories } = useContext(GitHubContext);
 
     useEffect(() => {
-        getUser(props.match.params['userLogin']);
-        getRepos(props.match.params['userLogin']);
+        getSingleUser(props.match.params['userLogin']);
+        getUserRepositories(props.match.params['userLogin']);
         // eslint-disable-next-line
     }, []);
 
-    const { login, name, avatar_url, html_url, location, bio, repos_url, followers, following  } = props.user;
+    const { login, name, avatar_url, html_url, location, bio, repos_url, followers, following  } = user;
 
     if(loading) {
         return <Loading />
@@ -53,7 +54,7 @@ const UserProfile = props => {
                     { following && ( <p><strong>Following</strong>: { following }</p> ) }
                 </div>
             </div>
-            <Repositories repos={ repos } />
+            <Repositories />
         </Fragment>
     );
 

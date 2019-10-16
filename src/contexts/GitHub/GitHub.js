@@ -11,17 +11,17 @@ export const GitHubContext = createContext();
 
 export const GitHubState = props => {
 
-    const globalState = {
+    const githubState = {
         title: '',
         icon: '',
         users: [],
         user: {},
-        repositories: [],
+        repos: [],
         loading: false,
         alert: null
     };
 
-    const [state, dispatch] = useReducer(Reducer, globalState);
+    const [state, dispatch] = useReducer(Reducer, githubState);
 
     // search users
     const searchUsers = async searchTerm => {
@@ -35,18 +35,16 @@ export const GitHubState = props => {
 
     // get a user
     const getSingleUser = async userLogin => {
-        setLoading(true);
+        setLoading();
         const res = await axios.get(`${API_URL}/${userLogin}?client_id=${API_ID}&client_secret=${API_SECRET}`);
-        setUser(res.data);
-        setLoading(false);
+        dispatch({ type: GET_USER, payload: res.data });
     };
 
     // get repos
     const getUserRepositories = async userLogin => {
-        setLoading(true);
+        setLoading();
         const res = await axios.get(`https://api.github.com/users/${userLogin}/repos?per_page=5&sort=created:asc&client_id=${API_ID}&client_secret=${API_SECRET}`);
-        setRepositories(res.data);
-        setLoading(false);
+        dispatch({ type: GET_REPOS, payload: res.data });
     };
 
     // set alert
@@ -56,7 +54,7 @@ export const GitHubState = props => {
     };
 
     // set loading
-    const setLoading = dispatch({ type: SET_LOADING });
+    const setLoading = () => dispatch({ type: SET_LOADING });
 
     return (
         <GitHubContext.Provider value={{
@@ -64,11 +62,13 @@ export const GitHubState = props => {
             icon: state.icon,
             users: state.users,
             user: state.user,
-            repos: state.repositories,
+            repos: state.repos,
             loading: state.loading,
             alert: state.alert,
             searchUsers,
             clearUsers,
+            getSingleUser,
+            getUserRepositories,
             setAlert
         }}>
             { props.children }
